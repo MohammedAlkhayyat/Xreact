@@ -23,10 +23,7 @@ class rxn:
         #The output should give a list that contains the inputs and outputs with each seprated by atom
         #Chemical reaction should also be given as an output    
         return atom, atom1, self.eq;
-    def jack(self):
-        print("hello jackass")
 
-   
     
 
 data = rxn( 1, reactants = ("CH4" , 2 * "O2") , products =("NH3" ,"C"), eq = True);
