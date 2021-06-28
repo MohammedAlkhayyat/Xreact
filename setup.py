@@ -1,12 +1,14 @@
 class rxn:
     def __init__(self, i, reactants, products,eq):
+
+        global a 
         self.reactants = reactants
         self.products = products
         self.eq = eq
         import pandas as pd
         global df;
         df = pd.read_csv('Database.csv')
-    def atoms_array(self):
+    def atoms(self):
     #i is the reaction number index for multiple reactions
     #Define lists
         atom = [];
@@ -24,13 +26,18 @@ class rxn:
         
         #The output should give a list that contains the inputs and outputs with each seprated by atom
         #Chemical reaction should also be given as an output    
-        return atom, atom1, self.eq;
-                
-
-  #  def MW(self):
+        return atom, atom1;
+    
+    def MW(self):
+        try:
+            for index, row in df.iterrows():
+                if row['Symbol'] == data.atoms()[0][0][0] : print(row['AtomicMass'])
+        except:
+            print('Erorr in inlet element')
                 
         
 
 
-  
 data = rxn( 1, reactants = ("CH4" , 2 * "O2") , products =("NH3" ,"C"), eq = True);
+data.MW()
+
