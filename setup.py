@@ -8,6 +8,7 @@ class rxn:
         import pandas as pd
         global df;
         df = pd.read_csv('Database.csv')
+        
     def atoms(self):
     #i is the reaction number index for multiple reactions
     #Define lists
@@ -16,17 +17,31 @@ class rxn:
     
     
         #This loop will cycle through the input components and list, append them into the list
-        for comp in self.reactants[0:]:
+        for comp in self.reactants:
             atom.append(list(comp));
     
         #This loop will cycle through the output components and list, append them into the list
 
-        for comp in self.products[0:]:
+        for comp in self.products:
             atom1.append(list(comp));    
         
         #The output should give a list that contains the inputs and outputs with each seprated by atom
         #Chemical reaction should also be given as an output    
         return atom, atom1;
+    
+    
+    def atom_sort(self):
+        global elem
+        for comp in self.reactants:
+            for elem in comp:
+                if elem.isdigit(): num = float(elem)
+                elif elem.isalpha():
+                    if elem.isupper(): 
+                        element_string = elem
+                    else:
+                        element_string + elem
+                          
+        
     
     def MW(self):
         try:
@@ -34,6 +49,8 @@ class rxn:
                 if row['Symbol'] == data.atoms()[0][0][0] : print(row['AtomicMass'])
         except:
             print('Erorr in inlet element')
+            
+            
                 
         
 
