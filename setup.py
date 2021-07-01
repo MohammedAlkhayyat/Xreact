@@ -1,3 +1,5 @@
+import pandas as pd
+
 class rxn:
     def __init__(self, i, reactants, products,eq):
 
@@ -31,17 +33,29 @@ class rxn:
     
     
     def atom_sort(self):
+        num = 1
+        element_list = []
+        stio_list = []
+        num_list = []
+
+
         global elem
         for comp in self.reactants:
-            for elem in comp:
-                if elem.isdigit(): num = float(elem)
-                elif elem.isalpha():
-                    if elem.isupper(): 
-                        element_string = elem
-                    else:
-                        element_string + elem
-                          
-        
+            global df1
+            s1 = 0
+            s2 = 0
+ 
+            for elem, nexte in zip(list(comp), list(comp[1:])):
+                if elem.isupper: element_list.append(elem)
+                if nexte.isdigit(): 
+                    s1 += 1
+                    
+                if s1 == 1 and elem.isdigit(): 
+                    num_list.append(elem)
+                    s1 -= 1
+                    
+
+        return pd.DataFrame([element_list, num_list])
     
     def MW(self):
         try:
@@ -55,6 +69,7 @@ class rxn:
         
 
 
-data = rxn( 1, reactants = ("CH4" , 2 * "O2") , products =("NH3" ,"C"), eq = True);
+data = rxn( 1, reactants = ("C2H4" , "CH4") , products =("NH3" ,"C"), eq = True);
 data.MW()
+print(data.atom_sort())
 
