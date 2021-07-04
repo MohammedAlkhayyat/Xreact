@@ -9,8 +9,8 @@ class rxn:
         self.eq = eq
         import pandas as pd
         global df;
-        df = pd.read_csv('Database.csv')
         
+        df = pd.read_csv('ElementData.csv')
     def atoms(self):
     #i is the reaction number index for multiple reactions
     #Define lists
@@ -40,21 +40,20 @@ class rxn:
 
 
         global elem
-        for comp in self.reactants:
-            global df1
-            s1 = 0
-            s2 = 0
- 
-            for elem, nexte in zip(list(comp), list(comp[1:])):
-                if elem.isupper: element_list.append(elem)
-                if nexte.isdigit(): 
-                    s1 += 1
-                    
-                if s1 == 1 and elem.isdigit(): 
-                    num_list.append(elem)
-                    s1 -= 1
-                    
+        LookForNumber = 0
 
+        for comp in self.reactants:
+            for elem in comp:
+                if not isfloat(elem) and LookForNumber == 1: 
+                    num_list.append('1')
+                    LookForNumber = 0
+                if elem.isupper():
+                    element_list.append(elem)
+                    LookForNumber = 1
+               # if elem.islower():element_list.append(elem)
+                if isfloat(elem):
+                    num_list.append(elem)
+                    LookForNumber = 0
         return pd.DataFrame([element_list, num_list])
     
     def MW(self):
@@ -64,12 +63,20 @@ class rxn:
         except:
             print('Erorr in inlet element')
             
-            
+def isfloat(X):
+    try:
+        float(X)
+        return True
+    except:
+        return False
+        
+        
+                   
                 
         
 
 
-data = rxn( 1, reactants = ("C2H4" , "CH4") , products =("NH3" ,"C"), eq = True);
+data = rxn( 1, reactants = ("C1H3") , products =("NH3" ,"C"), eq = True);
 data.MW()
 print(data.atom_sort())
 
